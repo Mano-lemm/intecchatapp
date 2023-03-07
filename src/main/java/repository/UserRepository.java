@@ -28,7 +28,7 @@ public class UserRepository {
     public List<User> readUsers(List<Long> ids){
         EntityManager em = EntityManagerProvider.getEm();
         String idsString = ids.stream().map(String::valueOf).collect(Collectors.joining(","));
-        Query query = em.createQuery("select name, id, password from User where id in (" + idsString + ")");
+        Query query = em.createNativeQuery("select id, name, password from users where id in (" + idsString + ")", User.class);
         List<User> resultList = (List<User>) query.getResultList();
         em.close();
         return resultList;
@@ -36,8 +36,8 @@ public class UserRepository {
 
     public List<User> readAllUsers(){
         EntityManager em = EntityManagerProvider.getEm();
-        Query query = em.createQuery("select name, id, password from User");
-        List<User> resultList = (List<User>) query.getResultList();
+        Query query = em.createNativeQuery("select id, name, password from users", User.class);
+        List resultList = query.getResultList();
         em.close();
         return resultList;
     }

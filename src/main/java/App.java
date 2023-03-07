@@ -5,6 +5,9 @@ import models.User;
 import services.ChatService;
 import views.ChatRoomView;
 
+import java.util.List;
+import java.util.Optional;
+
 public class App {
     public static void main(String[] args) {
         User mano = new User("Mano", "onam");
@@ -41,6 +44,12 @@ public class App {
 
         for (Message message : chatRoom.getMessages()) {
             cs.createMessage(message);
+        }
+
+        List<User> allusers = cs.readAllUsers();
+
+        for (User u : allusers) {
+            System.out.printf("user %s with id %d found.\n", u.getName(), u.getId());
         }
     }
 }

@@ -55,4 +55,8 @@ public class User {
                 "name='" + name + '\'' +
                 '}';
     }
+
+    public Long getId() {
+        return id;
+    }
 }

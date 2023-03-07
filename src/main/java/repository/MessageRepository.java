@@ -28,7 +28,7 @@ public class MessageRepository {
     public List<Message> readMessages(List<Long> ids){
         EntityManager em = EntityManagerProvider.getEm();
         String idsString = ids.stream().map(String::valueOf).collect(Collectors.joining(","));
-        Query query = em.createQuery("select id, body, receivers, sender from Message where id in (" + idsString + ")");
+        Query query = em.createQuery("select id, body, receivers, sender from Message where id in (" + idsString + ")", Message.class);
         List<Message> resultList = (List<Message>) query.getResultList();
         em.close();
         return resultList;
@@ -36,7 +36,7 @@ public class MessageRepository {
 
     public List<Message> readAllMessages(){
         EntityManager em = EntityManagerProvider.getEm();
-        Query query = em.createQuery("select id, body, receivers, sender from Message");
+        Query query = em.createQuery("select id, body, receivers, sender from Message", Message.class);
         List<Message> resultList = (List<Message>) query.getResultList();
         em.close();
         return resultList;
